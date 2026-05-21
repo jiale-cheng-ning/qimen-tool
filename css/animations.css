@@ -1,0 +1,354 @@
+/* ========================================
+   奇门遁甲占卜工具 - 动画样式
+   ======================================== */
+
+/* ---------- fadeIn 淡入动画 ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-in-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.fade-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.fade-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
+.fade-in-delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+/* ---------- pulse 脉冲动画 ---------- */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ---------- glow 发光动画 ---------- */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(212, 168, 67, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(212, 168, 67, 0.6),
+                 0 0 40px rgba(212, 168, 67, 0.2);
+  }
+}
+
+.glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* ---------- shimmer 流光动画 ---------- */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-gold) 0%,
+    var(--color-accent-gold-light) 25%,
+    #fff 50%,
+    var(--color-accent-gold-light) 75%,
+    var(--color-accent-gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ---------- 加载动画 ---------- */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent-gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loader-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.loader-lg {
+  width: 36px;
+  height: 36px;
+  border-width: 3px;
+}
+
+/* 点状加载 */
+@keyframes dotPulse {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.loader-dots {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.loader-dots .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent-gold);
+  border-radius: 50%;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.loader-dots .dot:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+.loader-dots .dot:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+/* ---------- 星空背景动画 ---------- */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* ---------- 流星动画 ---------- */
+@keyframes meteorFall {
+  0% {
+    opacity: 1;
+    transform: rotate(-45deg) translateX(0) translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(-45deg) translateX(-400px) translateY(400px);
+  }
+}
+
+.starfield .star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: twinkle var(--duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* ---------- 按钮点击效果 ---------- */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn.ripple::after {
+  animation: ripple 0.6s ease-out;
+}
+
+/* 按钮悬停光泽 */
+@keyframes btnShine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.btn-primary:hover::before {
+  animation: btnShine 0.6s ease;
+}
+
+/* ---------- 渐变边框效果 ---------- */
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba(212, 168, 67, 0.2);
+    box-shadow: 0 0 10px rgba(212, 168, 67, 0.05);
+  }
+  50% {
+    border-color: rgba(212, 168, 67, 0.5);
+    box-shadow: 0 0 20px rgba(212, 168, 67, 0.15);
+  }
+}
+
+.border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* 渐变旋转边框 */
+@keyframes gradientBorderSpin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.gradient-border {
+  position: relative;
+  border: none;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: conic-gradient(
+    from var(--angle),
+    var(--color-accent-gold),
+    var(--color-accent-purple),
+    var(--color-accent-cyan),
+    var(--color-accent-gold)
+  );
+  z-index: -1;
+  animation: gradientBorderSpin 4s linear infinite;
+}
+
+/* ---------- 符号选择动画 ---------- */
+@keyframes symbolSelect {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.symbol-selected {
+  animation: symbolSelect 0.4s ease;
+}
+
+/* ---------- 面板展开动画 ---------- */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+.slide-down {
+  animation: slideDown 0.4s ease forwards;
+  overflow: hidden;
+}
+
+/* ---------- 减少动画模式 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
