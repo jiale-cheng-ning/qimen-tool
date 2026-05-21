@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>奇门遁甲占卜工具</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>奇门遁甲排盘工具</h1>
+      <p class="subtitle">教学和培训用途</p>
+    </header>
+
+    <main class="main-content">
+      <section class="input-section">
+        <div class="datetime-picker">
+          <label for="datetime">选择时间：</label>
+          <input type="datetime-local" id="datetime" name="datetime">
+        </div>
+        <div class="question-input">
+          <label for="question">所问之事：</label>
+          <input type="text" id="question" placeholder="请输入您想占卜的问题，如：事业、财运、感情等" maxlength="100">
+        </div>
+        <div class="action-buttons">
+          <button id="calculate-btn" class="btn btn-primary">排盘</button>
+          <button id="reset-btn" class="btn btn-secondary">重置</button>
+        </div>
+      </section>
+
+      <section class="palace-section">
+        <div class="palace-grid" id="palace-grid">
+        </div>
+      </section>
+
+      <section class="interpretation-section">
+        <div class="panel" id="interpretation-panel">
+          <h3>符号解读</h3>
+          <div class="content" id="interpretation-content">
+            点击任意符号查看详细解释
+          </div>
+        </div>
+      </section>
+
+      <section class="summary-section" id="summary-section" style="display: none;">
+        <div class="panel">
+          <h3>盘象总结</h3>
+          <div class="content" id="summary-content">
+          </div>
+        </div>
+      </section>
+
+      <section class="analysis-section" id="analysis-section" style="display: none;">
+        <div class="panel">
+          <h3>分析与建议</h3>
+          <div class="content" id="analysis-content">
+          </div>
+        </div>
+      </section>
+
+      <section class="teaching-section">
+        <div class="tabs">
+          <button class="tab active" data-tab="guide">逐步引导</button>
+          <button class="tab" data-tab="cases">案例库</button>
+          <button class="tab" data-tab="knowledge">知识图谱</button>
+        </div>
+        <div class="tab-content" id="tab-content">
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>奇门遁甲占卜工具 - 仅供教学和研究使用</p>
+    </footer>
+  </div>
+
+  <script src="js/qimen.js"></script>
+  <script src="js/symbols.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/starry.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
