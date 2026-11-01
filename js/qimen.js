@@ -120,7 +120,7 @@ function getYearGanZhi(year) {
 
 /**
  * 计算月干支
- * @param {string} yearGan - 年干
+ * @param {number} year - 输入的公历年
  * @param {number} month - 月（1-12）
  * @returns {{ gan: string, zhi: string, gz: string, index: number }}
  */
@@ -201,9 +201,9 @@ function getYinYang(month) {
  * @param {number} day - 日
  * @returns {{ juNumber: number, yinYang: string }}
  */
-function getJuNumber(yearGan, month, day) {
+function getJuNumber(year, month, day) {
   const yinYang = getYinYang(month);
-  const dayInfo = getDayGanZhi(new Date().getFullYear(), month, day);
+  const dayInfo = getDayGanZhi(year, month, day);
 
   // 日干对应宫数（1-10，甲1→癸10）
   const ganPositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -278,13 +278,12 @@ function arrangePalace(juNumber, yinYang, timeInfo) {
 
   // 排九星
   const zhiFuStarIdx = juNumber - 1; // 值符星在九星数组中的索引
-  for (let i = 0; i < 9; i++) {
-    if (i === 4) {
-      // 天禽永远在中5宫
-      palaces[4].star = JIU_XING[4];
-      continue;
-    }
-    const offset = (i - zhiFuStarIdx + 9) % 9;
+  // 中宫固定，外圈只有八个位置，偏移也必须按八取模。
+  palaces[4].star = JIU_XING[4];
+  const outerStars = [0, 1, 2, 3, 5, 6, 7, 8];
+  const anchor = outerStars.indexOf(zhiFuStarIdx === 4 ? 5 : zhiFuStarIdx);
+  for (const [position, i] of outerStars.entries()) {
+    const offset = (position - anchor + 8) % 8;
     const targetPalace = (offset === 0) ? zhiFuTargetPalace
       : (yinYang === '阳' ? luoshuAdvance(zhiFuTargetPalace, offset) : luoshuReverse(zhiFuTargetPalace, offset));
     palaces[targetPalace - 1].star = JIU_XING[i];
@@ -317,7 +316,7 @@ function arrangePalace(juNumber, yinYang, timeInfo) {
       if (yinYang === '阳') {
         targetPalaceIdx = (originalPalaceIdx + gateOffset) % 8;
       } else {
-        targetPalaceIdx = (originalPalaceIdx - gateOffset + 8) % 8;
+        targetPalaceIdx = ((originalPalaceIdx - gateOffset) % 8 + 8) % 8;
       }
       const targetPalace = LUOSHU_SEQUENCE[targetPalaceIdx];
       palaces[targetPalace - 1].men = gateNames[i];
@@ -348,7 +347,7 @@ function arrangePalace(juNumber, yinYang, timeInfo) {
       if (yinYang === '阳') {
         targetPalaceIdx = (originalPalaceIdx + gateOffset) % 8;
       } else {
-        targetPalaceIdx = (originalPalaceIdx - gateOffset + 8) % 8;
+        targetPalaceIdx = ((originalPalaceIdx - gateOffset) % 8 + 8) % 8;
       }
       const targetPalace = LUOSHU_SEQUENCE[targetPalaceIdx];
       palaces[targetPalace - 1].men = gateNames[i];
@@ -400,7 +399,7 @@ function calculateQimen(year, month, day, hour) {
   const hourGZ = getHourGanZhi(dayGZ.gan, hour);
 
   // 计算局数
-  const { juNumber, yinYang } = getJuNumber(yearGZ.gan, month, day);
+  const { juNumber, yinYang } = getJuNumber(year, month, day);
 
   // 排盘
   const palaces = arrangePalace(juNumber, yinYang, {

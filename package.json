@@ -4,6 +4,7 @@
   "description": "奇门遁甲占卜工具 - 教学和培训用途",
   "main": "server.js",
   "scripts": {
+    "test": "node test-qimen.js && node test-date-regression.js",
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
